@@ -1,0 +1,58 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "persian-subtitle-ai-staging",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-09-22",
+  "vars": {
+    "R2_BUCKET_NAME": "persian-subtitle-ai-videos-staging",
+    "MAX_UPLOAD_BYTES_PER_PERIOD": "1073741824",
+    "MAX_VIDEO_COUNT_PER_PERIOD": "10",
+    "MAX_JOB_COUNT_PER_PERIOD": "20",
+    "MAX_PROCESSED_SECONDS_PER_PERIOD": "3600",
+    "ENVIRONMENT": "staging"
+  },
+  "assets": {
+    "directory": "../web/dist",
+    "binding": "ASSETS",
+    "run_worker_first": [
+      "/api/*"
+    ]
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "persian-subtitle-ai-staging",
+      "migrations_dir": "../../database/migrations"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "VIDEO_BUCKET",
+      "bucket_name": "persian-subtitle-ai-videos-staging"
+    }
+  ],
+  "ai": {
+    "binding": "AI"
+  },
+  "queues": {
+    "producers": [
+      {
+        "queue": "persian-subtitle-ai-jobs-staging",
+        "binding": "TRANSCRIPTION_QUEUE"
+      }
+    ],
+    "consumers": [
+      {
+        "queue": "persian-subtitle-ai-jobs-staging",
+        "max_batch_size": 1,
+        "max_batch_timeout": 5,
+        "max_retries": 3,
+        "dead_letter_queue": "persian-subtitle-ai-jobs-staging-dlq",
+        "max_concurrency": 2
+      }
+    ]
+  },
+  "triggers": {
+    "crons": ["*/15 * * * *"]
+  }
+}

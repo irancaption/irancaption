@@ -1,0 +1,18 @@
+export const ERROR_CODES = [
+  "AUTH_REQUIRED", "FORBIDDEN", "INVALID_REQUEST", "INVALID_FILE", "FILE_TOO_LARGE",
+  "UNSUPPORTED_FORMAT", "UPLOAD_FAILED", "UPLOAD_EXPIRED", "VIDEO_TOO_LONG", "QUOTA_EXCEEDED",
+  "AI_PROVIDER_ERROR", "AI_PROVIDER_TIMEOUT", "TRANSLATION_FAILED", "SUBTITLE_GENERATION_FAILED",
+  "JOB_NOT_FOUND", "VIDEO_NOT_FOUND", "DATABASE_ERROR", "R2_ERROR", "INTERNAL_ERROR",
+  "NOT_IMPLEMENTED", "RATE_LIMITED", "CSRF_REJECTED", "ORIGIN_REJECTED",
+  "AUDIO_SOURCE_REQUIRED"
+] as const;
+export type ErrorCode = (typeof ERROR_CODES)[number];
+
+export type ApiError = {
+  error: {
+    code: ErrorCode;
+    message: string;
+    retryable: boolean;
+    requestId: string;
+  };
+};

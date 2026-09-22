@@ -1,0 +1,24 @@
+{
+  "name": "@irancaption/worker",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@hono/zod-validator": "^0.4.3",
+    "hono": "^4.9.8",
+    "zod": "^4.1.8",
+    "aws4fetch": "^1.0.20",
+    "@irancaption/shared": "0.1.0",
+    "@irancaption/ai-core": "0.1.0",
+    "@irancaption/subtitle-core": "0.1.0",
+    "@simplewebauthn/server": "^14.0.0"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250917.0",
+    "wrangler": "^4.44.0"
+  }
+}

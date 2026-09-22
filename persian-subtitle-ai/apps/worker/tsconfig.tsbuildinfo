@@ -1,0 +1,1 @@
+{"root":["./src/index.ts","./src/audit/log.ts","./src/db/queries.ts","./src/errors/api.ts","./src/jobs/state.ts","./src/logging/logger.ts","./src/queue/publish.ts","./src/r2/presign.ts","./src/security/hash.ts","./src/security/headers.ts","./src/security/origin.ts","./src/security/rate-limit.ts","./src/validation/upload.ts"],"errors":true,"version":"5.8.3"}

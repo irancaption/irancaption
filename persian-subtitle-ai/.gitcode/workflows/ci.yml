@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  project: read
+  repository: read
+
+stages:
+  quality:
+    name: Quality
+    jobs:
+      test:
+        name: Test and build
+        runs-on: [ubuntu-latest, x64, small]
+        timeout-minutes: 30
+        steps:
+          - name: Checkout source code
+            uses: checkout
+          - name: Use Node.js
+            uses: setup-node@0.0.1
+            with:
+              node-version: '20.19.0'
+          - name: Install dependencies
+            run: npm install --ignore-scripts --no-audit --no-fund
+          - name: Validate migrations
+            run: npm run validate:migrations
+          - name: Production contract
+            run: npm run security:contract
+          - name: Dependency audit
+            run: npm audit --audit-level=high
+          - name: Typecheck
+            run: npm run typecheck
+          - name: Lint
+            run: npm run lint
+          - name: Test
+            run: npm test
+          - name: Build
+            run: npm run build

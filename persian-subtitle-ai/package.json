@@ -1,0 +1,33 @@
+{
+  "name": "persian-subtitle-ai",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Persian Subtitle AI Platform monorepo",
+  "packageManager": "npm@11.6.2",
+  "workspaces": [
+    "apps/web",
+    "apps/worker",
+    "packages/shared",
+    "packages/subtitle-core",
+    "packages/ai-core"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace=@irancaption/web",
+    "build": "npm run build --workspace=@irancaption/web && npm run build --workspace=@irancaption/worker",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "lint": "eslint . --max-warnings=0",
+    "test": "vitest run",
+    "validate:migrations": "node scripts/validate-migrations.mjs",
+    "security:static": "npm run validate:migrations",
+    "security:contract": "node scripts/validate-production-contract.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "^24.5.2",
+    "eslint": "^9.36.0",
+    "eslint-import-resolver-typescript": "^4.4.4",
+    "eslint-plugin-import": "^2.32.0",
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4",
+    "typescript-eslint": "^8.44.0"
+  }
+}
